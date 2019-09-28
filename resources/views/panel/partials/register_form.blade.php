@@ -3,7 +3,7 @@
         <div class="box box-warning">
 
             <div class="box-body">
-                <form  method="post" role="form" action="{{route('dashboard.store')}}"  enctype="multipart/form-data">
+                <form  method="post" role="form" action="{{ url('dashboard/store')}}"  enctype="multipart/form-data">
                     @csrf
                     <div class="container col-md-6">
                         <div class="form-group">

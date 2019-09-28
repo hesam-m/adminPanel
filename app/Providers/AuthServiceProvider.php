@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\UserEntity\User;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -24,7 +25,9 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-
+        Gate::define('add_owner',function (User $user){
+           return $user->roll==='admin';
+        });
         //
     }
 }

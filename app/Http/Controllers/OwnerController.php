@@ -4,21 +4,25 @@ namespace App\Http\Controllers;
 
 use App\Models\UserEntity\Owner;
 use App\Models\UserEntity\OwnerCategory;
+use App\Models\UserEntity\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
 class OwnerController extends Controller
 {
-    public function index()
+    public function index(User $user)
     {
+//        $user=$user->all();
         return view('panel.partials.main_content');
+//        return 'everything is ok';
     }
 
     public function getOwners()
     {
+        $user=(new User())->all();
         $owners=(new Owner())->all();
-     return view('panel.partials.owners',compact('owners'));
+     return view('panel.partials.owners',compact('owners','user'));
     }
 
     public function getRegister()
@@ -29,7 +33,6 @@ class OwnerController extends Controller
 
     public function postStore(Request $request)
     {
-
 
         $validator = Validator::make($request->all(), [
             'name'              => 'required|unique:owners|min:3',
@@ -68,7 +71,7 @@ class OwnerController extends Controller
 
         $owner->save();
 
-        return redirect('/home');
+         return redirect()->route('dashboard.index');
 
 
 

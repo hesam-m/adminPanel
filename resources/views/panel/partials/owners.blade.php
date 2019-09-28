@@ -5,10 +5,12 @@
         <div class="row">
             <div class="col-xs-12">
                 <div class="box">
+                    @can('add_owner',$user)
                     <div class="box-header">
                         <h3 class="box-title">صاحبان کسب و کار</h3><br><br>
                         <a href="{{route('dashboard.register')}}" class="btn mr-auto btn-primary btn-lg">افزودن کسب و کار جدید</a>
                     </div><!-- /.box-header -->
+                    @endcan
                     <div class="box-body">
                         <table id="example2" class="table table-bordered table-hover">
                             <thead>
