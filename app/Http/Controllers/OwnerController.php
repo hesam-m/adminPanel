@@ -6,6 +6,7 @@ use App\Models\UserEntity\Owner;
 use App\Models\UserEntity\OwnerCategory;
 use App\Models\UserEntity\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
@@ -27,8 +28,17 @@ class OwnerController extends Controller
 
     public function getRegister()
     {
-        $owner_categories=(new OwnerCategory())->all(['title','id']);
-        return view('panel.partials.register_form',compact('owner_categories'));
+        if(Gate::denies('view',User::class))
+        {
+            abort(403,'access denied');
+        }else
+            {
+                $owner_categories=(new OwnerCategory())->all(['title','id']);
+                return view('panel.partials.register_form',compact('owner_categories'));
+
+            }
+
+
     }
 
     public function postStore(Request $request)
